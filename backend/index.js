@@ -3,11 +3,11 @@ const app = express();
 const port = process.env.PORT || 5500;
 require("dotenv").config();
 //middleware
-const cors = require("cors"); 
+const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@genius.r5hwg.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
@@ -19,7 +19,7 @@ async function run() {
     ? console.log("connected to the database")
     : await client.close();
 
-  const collection = client.db("Hotel").collection("services");
+  const collection = client.db("Machanics").collection("services");
   // post api
   app.post("/api/services", async (req, res) => {
     const service = req.body;
@@ -32,6 +32,14 @@ async function run() {
     const result = await collection.find({}).toArray();
     res.json(result);
   });
+
+  // get single service
+  app.get("/api/services/:id", async (req, res) => {
+    const result = await collection.findOne({ _id: ObjectId(req.params.id) });
+    res.json(result);
+  });
+
+
 
 }
 run().catch(console.dir);
