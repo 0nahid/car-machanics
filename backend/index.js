@@ -15,8 +15,14 @@ async function run() {
     : await client.close();
 
   const collection = client.db("Hotel").collection("services");
+  app.post("/api/services", async (req, res) => {
+    const service = req.body;
+    const result = await collection.insertOne(service);
+    res.json(result);
+  });
 }
 run().catch(console.dir);
+    
 
 app.get("/", (req, res) => res.send("Hello World!"));
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
