@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form';
 import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 export default function AddService() {
     const { register, handleSubmit } = useForm();
     const onSubmit = (data, e) => {
@@ -14,8 +15,9 @@ export default function AddService() {
         //     .then(res => res.json())
         //     .then(data => console.log(data))
         axios.post('http://localhost:5500/api/services', data)
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            .then((res) => {
+                res.data.insertedId ? Swal.fire('Success', 'Service added successfully', 'success') : Swal.fire('Error', 'Service not added', 'error');
+            })
 
         e.target.reset();
     };
@@ -35,7 +37,7 @@ export default function AddService() {
             </div>
             <div className="form-group mt-2">
                 <input className="form-control"
-                    type="text" required placeholder="Description" {...register("description", {  min: 10 })} />
+                    type="text" required placeholder="Description" {...register("description", { min: 10 })} />
             </div>
             <div className="form-group mt-2">
                 <input className="form-control"

@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import './Service.css';
 
 const Service = ({ service }) => {
-    console.log(service);
     const { _id, name, price, description, img } = service;
     return (
         <div className="service pb-3">
