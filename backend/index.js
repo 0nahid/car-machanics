@@ -15,6 +15,7 @@ async function run() {
     : await client.close();
 
   const collection = client.db("Hotel").collection("services");
+  // post api
   app.post("/api/services", async (req, res) => {
     const service = req.body;
     const result = await collection.insertOne(service);
