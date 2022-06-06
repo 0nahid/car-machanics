@@ -2,6 +2,11 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 5500;
 require("dotenv").config();
+//middleware
+const cors = require("cors"); 
+app.use(cors());
+app.use(express.json());
+
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@genius.r5hwg.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -27,7 +32,7 @@ async function run() {
     const result = await collection.find({}).toArray();
     res.json(result);
   });
-  
+
 }
 run().catch(console.dir);
 
