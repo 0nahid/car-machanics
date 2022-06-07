@@ -10,12 +10,11 @@ const Booking = () => {
             .then(data => setService(data))
     }, [serviceId])
     return (
-        <div>
-            <h2>this is booking: {serviceId}</h2>
+        <div className="w-50 m-auto">
             <h1>{service?.name}</h1>
-            <p>{service?.price}</p>
-            <p>{service?.description}</p> 
-            <img src={service?.img} alt="" />
+            <h1>Price:{service?.price}$</h1>
+            <p>{service?.description}</p>
+            <img className='img-fluid' src={service?.img} alt="" />
         </div>
     );
 };
